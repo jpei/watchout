@@ -37,9 +37,25 @@ var updateBestScore = function() {
 
 var players = [];
 players.push(new Player(gameOptions).render(gameBoard));
-var enemies = [];
+var enemies_data = [];
 for (var i=0; i < gameOptions.nEnemies; i++) {
-	enemies.push(new Enemy(gameOptions).render(gameBoard));
+	enemies_data.push(new Enemy(gameOptions, i).render(gameBoard));
 }
 
-//gameBoard.select()
+var enemies = gameBoard.selectAll('circle')
+				 							 .data(enemies_data);
+
+enemies.enter()
+			 .append('svg:circle');
+
+enemies.attr('class','enemy')
+			 .attr('fill', 'black')
+			 .attr('cx', function(enemy) { return enemy.x; })
+			 .attr('cy', function(enemy) { return enemy.y; })
+			 .attr('r', function(enemy){return enemy.r});
+			 // .attr('height', 10+'px')
+			 // .attr('width', 10+'px');		 
+
+enemies.exit()
+			 .remove();
+

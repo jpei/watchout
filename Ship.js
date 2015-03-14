@@ -39,9 +39,9 @@ Ship.prototype.setY = function(y) {
 Ship.prototype.transform = function(opts) {
 	this.angle=opts.angle || this.angle;
 	this.setX(opts.x || this.x);
-	this.setY(optx.y || this.y);
+	this.setY(opts.y || this.y);
 
-	this.el.attr('transform', 'rotate('+this.angle+','+this.getX()+','+this.getY()+')'+ 'translate('+this.getX()+','+this.getY()+')');
+	//this.el.attr('transform', 'rotate('+this.angle+','+this.getX()+','+this.getY()+')'+ 'translate('+this.getX()+','+this.getY()+')');
 };
 
 Ship.prototype.moveAbsolute = function(x,y) {
