@@ -10,6 +10,8 @@ var gameOptions = {
 
 // game stats obj
 var gameStats = {
+	collisions: 0,
+	collidedRecently : false,
 	score: 0,
 	bestScore: 0
 };
@@ -34,6 +36,22 @@ var updateBestScore = function() {
 	gameStats.bestScore = Math.max(gameStats.bestScore, gameStats.score);
 	d3.select('#best-score').text(gameStats.bestScore.toString());
 };
+
+var collide = function() {
+	if (!gameStats.collidedRecently) {
+		players.classed('invincible', !players.classed('invincible'));
+		gameStats.collisions++;
+		d3.select('.collisions span').data([gameStats.collisions]).text(function(d){return d.toString()});
+		updateBestScore();
+		gameStats.score = 0;
+		updateScore();
+		gameStats.collidedRecently = true;
+		setTimeout(function() {
+			players.classed('invincible', !players.classed('invincible'));
+			gameStats.collidedRecently = false
+		}, 1000);
+	}
+}
 
 var playersData = [];
 playersData.push(new Player(gameOptions).render(gameBoard));
@@ -63,6 +81,12 @@ var update = function(){
 	enemies.attr('class', 'enemy')
 				 .transition()
 				 .duration(1000)
+				 .tween('test', function() { return function(t) {
+				 	if (Math.pow(this.cx.animVal.value - playersData[0].x,2)+ Math.pow(this.cy.animVal.value -playersData[0].y,2) < Math.pow(this.r.animVal.value+playersData[0].r,2)){
+				 		collide();
+				 	}
+
+				 }})
 				 .attr('cx', function(enemy) { return enemy.x; })
 				 .attr('cy', function(enemy) { return enemy.y; })
 				 .attr('r', function(enemy){ return enemy.r});
