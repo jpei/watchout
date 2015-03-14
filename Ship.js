@@ -1,9 +1,8 @@
 var Ship = function(gameOptions) {
-	this.fill='white';
-	this.angle=0;
-	this.x=0;
-	this.y=0;
-	this.gameOptions=gameOptions;
+	this.fill = 'white';
+	this.x = 0;
+	this.y = 0;
+	this.gameOptions = gameOptions;
 };
 
 Ship.prototype.getX = function() {
@@ -37,11 +36,8 @@ Ship.prototype.setY = function(y) {
 };
 
 Ship.prototype.transform = function(opts) {
-	this.angle=opts.angle || this.angle;
 	this.setX(opts.x || this.x);
 	this.setY(opts.y || this.y);
-
-	//this.el.attr('transform', 'rotate('+this.angle+','+this.getX()+','+this.getY()+')'+ 'translate('+this.getX()+','+this.getY()+')');
 };
 
 Ship.prototype.moveAbsolute = function(x,y) {
