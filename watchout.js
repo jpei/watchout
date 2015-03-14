@@ -13,7 +13,8 @@ var gameStats = {
 	collisions: 0,
 	collidedRecently : false,
 	score: 0,
-	bestScore: 0
+	bestScore: 0,
+	timeBetweenMove: 5000
 };
 
 // axes
@@ -49,7 +50,7 @@ var collide = function() {
 		setTimeout(function() {
 			players.classed('invincible', !players.classed('invincible'));
 			gameStats.collidedRecently = false
-		}, 1000);
+		}, gameStats.timeBetweenMove);
 	}
 }
 
@@ -94,4 +95,4 @@ var update = function(){
 				 .remove();
 }
 update();
-setInterval(update, 1000);
+setInterval(update, gameStats.timeBetweenMove);

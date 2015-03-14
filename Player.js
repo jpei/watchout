@@ -14,21 +14,20 @@ Player.prototype.render = function(to) {
 	return this;
 };
 
+Player.prototype.transform = function(opt) {
+	Ship.prototype.transform.call(this, opt);
+	if (enemiesData) {
+		for (var i=0; i<window.enemiesData.length; i++) {
+			if (Math.pow(window.enemiesData[i].x - this.x,2)+ Math.pow(window.enemiesData[i].y -this.y,2) < Math.pow(window.enemiesData[i].r+this.r,2)){
+				window.collide();
+			}
+		}
+	}
+}
+
 Player.prototype.moveRelative = function(dx,dy) {
 	this.transform({x:this.getX()+dx, y:this.getY()+dy});
 };
-/*
-Player.prototype.setupDragging = function(element) {
-	var dragMove = function() { 
-		console.log('hi');
-		this.moveRelative(d3.event.dx, d3.event.dy);
-	};
-	var drag = d3.behavior.drag()
-							 .on('drag', dragMove);
-	// element.call(drag);
-	return drag;
-};
-*/
 
 Player.prototype.drag = d3.behavior.drag()
 	.on("drag", function(d,i) {
