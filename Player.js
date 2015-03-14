@@ -23,7 +23,7 @@ Player.prototype.transform = function(opt) {
 			}
 		}
 	}
-}
+};
 
 Player.prototype.moveRelative = function(dx,dy) {
 	this.transform({x:this.getX()+dx, y:this.getY()+dy});

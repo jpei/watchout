@@ -1,6 +1,6 @@
 var Enemy = function(gameOptions, id) {
 	Ship.call(this, gameOptions);
-	this.r = 7;
+	this.r = gameOptions.enemyRadius;
 	this.id = id;
 };
 
@@ -16,5 +16,5 @@ Enemy.prototype.move = function() {
 	this.transform({
 		x: this.gameOptions.padding+(this.gameOptions.width-2*this.gameOptions.padding)*Math.random(), // random from padding to width - padding
 		y: this.gameOptions.padding+(this.gameOptions.height-2*this.gameOptions.padding)*Math.random()
-});
+	});
 };

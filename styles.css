@@ -11,7 +11,7 @@ body {
 	stroke-width: 2;
 }
 .enemy {
-	fill: black;
+	/*fill: black;*/
 }
 .invincible {
 	opacity: .5;
