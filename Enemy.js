@@ -1,6 +1,5 @@
 var Enemy = function(gameOptions, id) {
 	Ship.call(this, gameOptions);
-	this.fill = "black";
 	this.r = 7;
 	this.id = id;
 };

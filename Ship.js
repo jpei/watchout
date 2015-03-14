@@ -1,5 +1,4 @@
 var Ship = function(gameOptions) {
-	this.fill = 'white';
 	this.x = 0;
 	this.y = 0;
 	this.gameOptions = gameOptions;
