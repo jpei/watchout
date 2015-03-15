@@ -16,7 +16,7 @@ var gameStats = {
 	startTime: new Date().getTime(),
 	score: 0,
 	bestScore: 0,
-	timeBetweenMove: 2000
+	timeBetweenMove: 2000*1
 };
 
 // axes
@@ -86,6 +86,15 @@ var players = gameBoard.selectAll('.player')
 				 .attr('r', function(player) { return player.r; })
 				 .call(playersData[0].drag);
 
+var count = 0;
+var finishOne = function() {
+	count++;
+	if (count >= gameOptions.nEnemies) {
+		count -= gameOptions.nEnemies;
+		update();
+	}
+}
+
 var update = function(){
 	for (var i=0; i<enemiesData.length; i++){
 		enemiesData[i].move();
@@ -97,7 +106,7 @@ var update = function(){
 	enemies.attr('class', 'enemy')
 				 .attr('filter', 'url(#shuriken)')
 				 .transition()
-				 .duration(1000)
+				 .duration(gameStats.timeBetweenMove)
 				 .tween('test', function() {
 				 	 return function(t) {
 					 	 if (Math.pow(this.cx.animVal.value - playersData[0].x,2)+ Math.pow(this.cy.animVal.value -playersData[0].y,2) < Math.pow(this.r.animVal.value+playersData[0].r,2)){
@@ -107,12 +116,13 @@ var update = function(){
 				 })
 				 .attr('cx', function(enemy) { return enemy.x; })
 				 .attr('cy', function(enemy) { return enemy.y; })
-				 .attr('r', function(enemy){ return enemy.r});
+				 .attr('r', function(enemy){ return enemy.r})
+				 .each('end', finishOne);
 	enemies.exit()
 				 .remove();
 }
 update();
-setInterval(update, gameStats.timeBetweenMove);
+
 setInterval(function() {
 	gameStats.score = new Date().getTime() - gameStats.startTime;
 	updateScore();
